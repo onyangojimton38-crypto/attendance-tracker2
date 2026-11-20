@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f7fb" />
+    <title>Attendance | KE 259 Rang'ombe CDC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module">
+      if (new URLSearchParams(window.location.search).get("demo") !== "1") {
+        import("./script.js");
+      }
+    </script>
+    <script src="demo-preview.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell" id="app-shell" hidden>
+      <aside class="sidebar">
+        <a class="brand" href="#overview" aria-label="KE 259 Rang'ombe CDC home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><path d="M6 24V10.5L16 5l10 5.5V24M11 24v-8h10v8M4 27h24" /></svg>
+          </span>
+          <span class="brand-copy"><strong>KE 259</strong><small>RANG'OMBE CDC</small></span>
+        </a>
+
+        <div class="sidebar-label">MENU</div>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a class="nav-link" href="#overview" aria-label="Overview">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+            <span>Overview</span>
+          </a>
+          <a class="nav-link active" href="#attendance" aria-current="page">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 15l2.5 2.5L16 12"/></svg>
+            <span>Attendance</span>
+            <span class="nav-dot"></span>
+          </a>
+          <a class="nav-link" href="#students">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20v-1.5A5.5 5.5 0 0 1 8 13h2a5.5 5.5 0 0 1 5.5 5.5V20M16 4.8a3.5 3.5 0 0 1 0 6.7M18 14a5 5 0 0 1 3.5 4.8V20"/></svg>
+            <span>Students</span>
+          </a>
+          <a class="nav-link" href="#report-panel">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16M8 16v-4m4 4V8m4 8v-6"/></svg>
+            <span>Reports</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="help-card">
+            <span class="help-icon">?</span>
+            <strong>Need a hand?</strong>
+            <p>Ask your school admin if you need help.</p>
+            <a href="#students">Open student roster <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="profile">
+            <div class="avatar avatar-admin" id="profile-avatar">JM</div>
+            <div class="profile-copy"><strong id="profile-name">Jordan Miller</strong><small id="profile-role">School admin · all classes</small></div>
+            <button class="logout-button" id="logout-button" type="button" aria-label="Log out">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5M15 12H3M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></svg>
+              <span>Log out</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content" id="attendance">
+        <header class="topbar">
+          <div class="breadcrumb"><span>School</span><span class="crumb-slash">/</span><strong>Attendance</strong></div>
+          <div class="topbar-right">
+            <span class="school-year"><span class="year-dot"></span><span id="school-scope">Signed-in school account</span></span>
+            <button class="icon-button top-logout-button" id="top-logout-button" type="button" aria-label="Log out" title="Log out">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5M15 12H3M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <div class="demo-banner" id="demo-banner" role="status" hidden>
+            <span><strong>Demo preview</strong> — fictional sample data only; nothing is saved.</span>
+            <button class="button button-outline" id="exit-demo-preview" type="button">Exit preview</button>
+          </div>
+          <section class="page-heading">
+            <div>
+              <p class="eyebrow">YOUR SCHOOL, AT A GLANCE</p>
+              <h1 id="page-title">Attendance</h1>
+              <p class="page-subtitle" id="page-subtitle">Attendance data for KE 259 Rang'ombe CDC.</p>
+            </div>
+            <div class="heading-actions">
+              <button class="button button-outline" id="export-button" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
+                Export report
+              </button>
+              <button class="button button-primary" id="add-student-button" type="button">
+                <span class="plus">+</span> Add student
+              </button>
+              <button class="button button-outline" id="add-class-button" type="button" hidden>
+                <span class="plus">+</span> Add class
+              </button>
+              <button class="button button-outline" id="manage-class-button" type="button" hidden>Manage classes</button>
+            </div>
+          </section>
+
+          <section class="summary-grid" id="overview" aria-label="Attendance summary">
+            <article class="summary-card total-card">
+              <div class="summary-top"><span class="summary-label">Total students</span><span class="summary-icon lavender"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20v-1.5A5.5 5.5 0 0 1 8 13h2a5.5 5.5 0 0 1 5.5 5.5V20M16 5a3.5 3.5 0 0 1 0 6.5"/></svg></span></div>
+              <div class="summary-value" id="total-count">0</div>
+              <div class="summary-foot"><span class="foot-muted" id="total-detail">In your assigned class</span></div>
+            </article>
+            <article class="summary-card">
+              <div class="summary-top"><span class="summary-label">Present</span><span class="summary-icon mint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg></span></div>
+              <div class="summary-value" id="present-count">0</div>
+              <div class="summary-foot"><span class="status-pip present-pip"></span><span id="present-detail">0% of students</span></div>
+            </article>
+            <article class="summary-card">
+              <div class="summary-top"><span class="summary-label">Absent</span><span class="summary-icon rose"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></span></div>
+              <div class="summary-value" id="absent-count">0</div>
+              <div class="summary-foot"><span class="status-pip absent-pip"></span><span id="absent-detail">0% of students</span></div>
+            </article>
+            <article class="summary-card">
+              <div class="summary-top"><span class="summary-label">Late arrivals</span><span class="summary-icon amber"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></svg></span></div>
+              <div class="summary-value" id="late-count">0</div>
+              <div class="summary-foot"><span class="status-pip late-pip"></span><span id="late-detail">0% of students</span></div>
+            </article>
+            <article class="summary-card">
+              <div class="summary-top"><span class="summary-label">Excused</span><span class="summary-icon lavender"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg></span></div>
+              <div class="summary-value" id="excused-count">0</div>
+              <div class="summary-foot"><span class="foot-muted">Excused absences today</span></div>
+            </article>
+          </section>
+
+          <section class="trend-panel" id="attendance-trends" aria-labelledby="trend-title" hidden>
+            <div class="trend-heading">
+              <div><h2 id="trend-title">Attendance trends</h2><p id="trend-description">Attendance over recent school days.</p></div>
+              <label class="select-control"><span class="sr-only">Chart period</span><select id="trend-period"><option value="week">This week</option><option value="month">This month</option></select></label>
+            </div>
+            <div class="trend-chart" id="trend-chart" role="img" aria-label="Attendance chart"></div>
+          </section>
+
+          <section class="follow-up-panel" id="absence-follow-up" aria-labelledby="follow-up-title" hidden>
+            <div class="trend-heading"><div><h2 id="follow-up-title">Absence follow-up</h2><p>Students who may need a check-in.</p></div></div>
+            <div class="follow-up-grid">
+              <div><h3>Absent today</h3><ul id="absent-today-list"></ul></div>
+              <div><h3>Absent 3+ school days in a row</h3><ul id="absent-streak-list"></ul></div>
+            </div>
+          </section>
+
+          <section class="timeclock-panel" id="teacher-timeclock" aria-labelledby="teacher-timeclock-title" hidden>
+            <div class="timeclock-heading">
+              <div><h2 id="teacher-timeclock-title">My work time</h2><p>Clock in when you start and clock out when you finish.</p></div>
+              <span class="timeclock-date" id="teacher-timeclock-date"></span>
+            </div>
+            <div class="timeclock-controls">
+              <p id="teacher-timeclock-status" role="status" aria-live="polite"></p>
+              <button class="button button-primary" id="teacher-timeclock-action" type="button">Clock in</button>
+            </div>
+          </section>
+
+          <section class="timeclock-panel" id="teacher-time-review" aria-labelledby="teacher-time-review-title" hidden>
+            <div class="timeclock-heading">
+              <div><h2 id="teacher-time-review-title">Teacher work-time records</h2><p>Recent clock-in and clock-out times.</p></div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th scope="col">TEACHER</th><th scope="col">WORK DATE</th><th scope="col">CLOCK IN</th><th scope="col">CLOCK OUT</th><th scope="col">HOURS</th></tr></thead>
+                <tbody id="teacher-time-rows"></tbody>
+              </table>
+              <div class="empty-state" id="teacher-time-empty" hidden><strong>No teacher time records yet</strong></div>
+            </div>
+          </section>
+
+          <section class="attendance-panel" id="students" aria-labelledby="roster-title">
+            <div class="panel-heading">
+              <div>
+                <div class="panel-title-row"><h2 id="roster-title">Class roster</h2><span class="student-count" id="roster-count">0 students</span></div>
+                <p id="roster-description">Keep attendance up to date.</p>
+              </div>
+              <div class="panel-controls">
+                <label class="date-control" for="attendance-date">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+                  <input id="attendance-date" type="date" aria-label="Attendance date" />
+                </label>
+                <label class="subject-control">Subject<select id="attendance-subject"><option>General</option><option>Mathematics</option><option>English</option><option>Kiswahili</option><option>Science</option><option>Social Studies</option></select></label>
+                <label class="select-control">
+                  <span class="sr-only">Filter by class</span>
+                  <select id="class-filter">
+                    <option value="all">All classes</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div class="roster-toolbar">
+              <div class="filter-tabs" role="tablist" aria-label="Filter students by attendance">
+                <button class="filter-tab active" type="button" data-status-filter="all" role="tab" aria-selected="true">All <span id="all-tab-count">0</span></button>
+                <button class="filter-tab" type="button" data-status-filter="present" role="tab" aria-selected="false">Present</button>
+                <button class="filter-tab" type="button" data-status-filter="absent" role="tab" aria-selected="false">Absent</button>
+                <button class="filter-tab" type="button" data-status-filter="late" role="tab" aria-selected="false">Late</button>
+                <button class="filter-tab" type="button" data-status-filter="excused" role="tab" aria-selected="false">Excused</button>
+                <button class="filter-tab" type="button" data-status-filter="unmarked" role="tab" aria-selected="false">Unmarked</button>
+              </div>
+              <div class="roster-tools">
+                <label class="search-box">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+                  <input id="student-search" type="search" placeholder="Search students..." aria-label="Search students" />
+                  <kbd>/</kbd>
+                </label>
+                <button class="button button-soft" id="mark-all-button" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg>
+                  Mark all present
+                </button>
+                <button class="button button-primary" id="save-attendance-button" type="button" disabled>Save attendance</button>
+              </div>
+            </div>
+            <p class="attendance-session-note" id="attendance-session-note" role="status" aria-live="polite"></p>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th scope="col" class="student-heading">STUDENT</th><th scope="col">ADMISSION NO.</th><th scope="col">GENDER</th><th scope="col">CLASS</th><th scope="col">ATTENDANCE</th><th scope="col">PARENT / GUARDIAN</th><th scope="col"><span class="sr-only">Actions</span></th></tr>
+                </thead>
+                <tbody id="student-rows"></tbody>
+              </table>
+              <div class="empty-state" id="empty-state" hidden>
+                <div class="empty-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg></div>
+                <strong>No students found</strong>
+                <p>Try a different search or add a student to your roster.</p>
+              </div>
+            </div>
+            <footer class="table-footer"><span id="showing-count">Showing 0 students</span><span class="save-note"><span class="save-check">✓</span> <span id="save-note-text">Changes save automatically</span></span></footer>
+          </section>
+
+          <section class="activity-panel" id="admin-activity" aria-labelledby="activity-title" hidden>
+            <div class="activity-heading"><div><h2 id="activity-title">Recent changes</h2><p>Attendance updates and absence reasons across the school.</p></div><span class="audit-badge">AUDIT LOG</span></div>
+            <div id="activity-list" class="activity-list"><p class="activity-empty">No recent changes.</p></div>
+          </section>
+
+          <section class="report-panel" id="report-panel" aria-labelledby="report-title" hidden>
+            <div class="activity-heading">
+              <div><h2 id="report-title">Attendance reports</h2><p>Daily, weekly, monthly, and student summaries.</p></div>
+              <div class="report-exports">
+                <button class="button button-outline" id="report-csv" type="button">CSV</button>
+                <button class="button button-outline" id="report-excel" type="button">Excel (.xls)</button>
+                <button class="button button-outline" id="report-pdf" type="button">Print / PDF</button>
+              </div>
+            </div>
+            <div class="report-controls">
+              <label class="select-control"><span class="sr-only">Report period</span><select id="report-period"><option value="day">Daily</option><option value="week">Weekly</option><option value="month">Monthly</option></select></label>
+              <label class="date-control">As of <input id="report-date" type="date" /></label>
+              <label class="select-control"><span class="sr-only">Report student</span><select id="report-student"><option value="all">All students</option></select></label>
+            </div>
+            <p class="report-summary" id="report-summary" role="status"></p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th scope="col">STUDENT</th><th scope="col">CLASS</th><th scope="col">PRESENT</th><th scope="col">ABSENT</th><th scope="col">LATE</th><th scope="col">EXCUSED</th><th scope="col">ATTENDANCE %</th></tr></thead>
+                <tbody id="report-rows"></tbody>
+              </table>
+              <div class="empty-state" id="report-empty" hidden><strong>No attendance records for this period</strong></div>
+            </div>
+          </section>
+
+          <section class="reason-panel" id="reason-panel" aria-labelledby="reason-title" hidden>
+            <div class="reason-panel-heading"><div><p class="eyebrow">STUDENT &amp; GUARDIAN PORTAL</p><h2 id="reason-title">Report an absence</h2><p>Submit a private explanation for a student marked absent.</p></div><span class="privacy-badge">Private submission</span></div>
+            <form id="reason-form">
+              <label class="form-field" id="reason-student-field">Student<select id="reason-student" required></select></label>
+              <label class="form-field">Date of absence<input id="reason-date" type="date" required /></label>
+              <label class="form-field reason-text-field">Reason<textarea id="absence-reason" rows="4" maxlength="2000" placeholder="Share a brief explanation for the absence..." required></textarea></label>
+              <p class="reason-privacy-note">Keep the explanation brief and avoid unnecessary sensitive medical details. Only linked school staff and family accounts can view it.</p>
+              <p class="reason-existing" id="existing-reason" hidden></p>
+              <button class="button button-primary" id="submit-reason-button" type="submit">Submit reason</button>
+              <p class="form-message" id="reason-message" role="status" aria-live="polite"></p>
+            </form>
+          </section>
+
+          <footer class="page-footer"><span>© 2026 KE 259 Rang'ombe CDC</span><span>Made for brighter school days <span class="footer-heart">♥</span></span></footer>
+        </div>
+      </main>
+    </div>
+
+    <main class="login-screen" id="login-screen">
+      <section class="login-card">
+        <div class="brand login-brand">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 24V10.5L16 5l10 5.5V24M11 24v-8h10v8M4 27h24" /></svg></span>
+          <span class="brand-copy"><strong>KE 259</strong><small>RANG'OMBE CDC</small></span>
+        </div>
+        <p class="eyebrow">ATTENDANCE TRACKER</p>
+        <h1 id="login-title">Sign in to your account</h1>
+        <p class="login-description">Use the school account provided to you.</p>
+        <form id="login-form">
+          <label class="form-field">Email address<input id="login-email" type="email" value="fgckrang'ombecdc@gmail.com" autocomplete="username" required /></label>
+          <label class="form-field">Password<input id="login-password" type="password" autocomplete="current-password" required /></label>
+          <p class="auth-message" id="auth-message" role="status" aria-live="polite"></p>
+          <button class="button button-primary login-submit" id="login-submit" type="submit">Sign in</button>
+        </form>
+        <button class="button button-outline preview-button" id="demo-preview-button" type="button">View dashboard preview</button>
+      </section>
+    </main>
+
+    <dialog id="student-dialog" class="student-dialog">
+      <form id="student-form" method="dialog">
+        <input id="student-edit-id" type="hidden" />
+        <div class="dialog-heading">
+          <div><p class="eyebrow">GROWING YOUR SCHOOL</p><h2 id="student-form-title">Add a student</h2><p>They'll be added to the selected class.</p></div>
+          <button type="button" class="dialog-close" id="close-dialog" aria-label="Close dialog">×</button>
+        </div>
+        <label class="form-field">Full name<input id="student-name" name="name" type="text" required maxlength="80" /></label>
+        <div class="form-row">
+          <label class="form-field">Class<select id="student-class" name="className" required></select></label>
+          <label class="form-field">Admission number<input id="student-id" name="studentId" type="text" required maxlength="24" /></label>
+        </div>
+        <div class="form-row">
+          <label class="form-field">Gender<select id="student-gender"><option value="">Not specified</option><option value="Female">Female</option><option value="Male">Male</option><option value="Other">Other</option></select></label>
+          <label class="form-field">Parent phone<input id="student-parent-phone" type="tel" maxlength="30" autocomplete="tel" /></label>
+        </div>
+        <div class="dialog-actions"><button type="button" class="button button-outline" id="cancel-dialog">Cancel</button><button type="submit" class="button button-primary" id="student-form-submit">Add student</button></div>
+      </form>
+    </dialog>
+
+    <dialog id="class-dialog" class="student-dialog">
+      <form id="class-form">
+        <div class="dialog-heading"><div><p class="eyebrow">SCHOOL SETUP</p><h2 id="class-form-title">Add a class</h2><p>Assign a teacher to a class or update its name.</p></div><button type="button" class="dialog-close" id="close-class-dialog" aria-label="Close dialog">×</button></div>
+        <label class="form-field">Existing class<select id="class-edit-target"><option value="">Create a new class</option></select></label>
+        <label class="form-field">Class name<input id="class-name" type="text" maxlength="80" placeholder="e.g. Class 1 East" required /></label>
+         <label class="form-field">Assigned teacher<select id="class-teacher"><option value="">Not assigned</option></select></label>
+        <div class="dialog-actions"><button type="button" class="button button-outline" id="cancel-class-dialog">Cancel</button><button type="submit" class="button button-primary" id="class-form-submit">Add class</button></div>
+      </form>
+    </dialog>
+
+    <dialog id="reason-detail-dialog" class="student-dialog reason-detail-dialog">
+      <div class="reason-detail-content">
+        <div class="dialog-heading"><div><p class="eyebrow">PRIVATE ABSENCE NOTE</p><h2 id="reason-detail-title">Absence reason</h2><p id="reason-detail-date"></p></div><button type="button" class="dialog-close" id="close-reason-dialog" aria-label="Close dialog">×</button></div>
+        <p id="reason-detail-body" class="reason-detail-body"></p>
+      </div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
